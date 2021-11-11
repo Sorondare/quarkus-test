@@ -1,0 +1,51 @@
+// default greeting
+GET http://localhost:8080/greeting/hello
+
+###
+
+// All formats
+GET http://localhost:8080/greeting/format
+Accept: application/json
+Authorization: Basic {{adminUsername}} {{adminPassword}}
+
+###
+
+// New format
+POST http://localhost:8080/greeting/format
+Content-Type: application/json
+Authorization: Basic {{adminUsername}} {{adminPassword}}
+
+{
+  "format": "Voici mon format pour %s"
+}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.global.set('formatId', response.body.id);
+    });
+%}
+
+###
+
+// Get created format
+GET http://localhost:8080/greeting/hello?name={{name}}&formatId={{formatId}}
+Accept: text/plain
+Authorization: Basic {{username}} {{password}}
+
+###
+
+// Update created format
+PUT http://localhost:8080/greeting/format/{{formatId}}
+Content-Type: application/json
+Authorization: Basic {{adminUsername}} {{adminPassword}}
+
+{
+  "format": "Nouveau format pour %s"
+}
+
+###
+
+// Delete the created format
+DELETE http://localhost:8080/greeting/format/{{formatId}}
+Authorization: Basic {{adminUsername}} {{adminPassword}}

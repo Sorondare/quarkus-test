@@ -1,0 +1,12 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    plugins {
+        id "${quarkusPluginId}" version "${quarkusPluginVersion}"
+        id "${lombokPluginId}" version "${lombokPluginVersion}"
+    }
+}
+rootProject.name = 'quarkus-test'
