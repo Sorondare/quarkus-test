@@ -26,7 +26,7 @@ public class GreetingFormatServiceImplTests {
 	}
 
 	@Test
-	void create() {
+	void create() throws EmptyFormatException {
 		final var format = "Test format %s";
 
 		Assertions.assertEquals(format, service.create(format).getFormat());
@@ -78,7 +78,7 @@ public class GreetingFormatServiceImplTests {
 	}
 
 	@Test
-	void updateFormat() {
+	void updateFormat() throws EmptyFormatException {
 		final var greetingFormat = GreetingFormat.builder().id(UUID.randomUUID()).format("Test new format %s").build();
 		final var entity = new GreetingFormatEntity();
 		entity.setId(greetingFormat.getId());

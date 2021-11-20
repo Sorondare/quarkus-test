@@ -37,9 +37,9 @@ class GreetingFormatServiceImpl implements GreetingFormatService {
 
 	@Override
 	@Transactional
-	public GreetingFormat create(String format) {
+	public GreetingFormat create(String format) throws EmptyFormatException {
 		if (format == null) {
-			throw new IllegalArgumentException("null");
+			throw new EmptyFormatException();
 		}
 
 		GreetingFormatEntity entity = new GreetingFormatEntity(format);
@@ -49,9 +49,9 @@ class GreetingFormatServiceImpl implements GreetingFormatService {
 
 	@Override
 	@Transactional
-	public void update(GreetingFormat format) {
+	public void update(GreetingFormat format) throws EmptyFormatException {
 		if (format == null || format.getId() == null) {
-			return;
+			throw new EmptyFormatException();
 		}
 
 		formatRepository

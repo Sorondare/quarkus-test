@@ -37,13 +37,13 @@ public class GreetingFormatResource {
 	}
 
 	@POST
-	public GreetingFormat createFormat(@Valid SimpleGreetingFormat request) {
+	public GreetingFormat createFormat(@Valid SimpleGreetingFormat request) throws EmptyFormatException {
 		return formatService.create(request.getFormat());
 	}
 
 	@PUT
 	@Path("/{id}")
-	public void updateFormat(@PathParam("id") UUID id, @Valid SimpleGreetingFormat format) {
+	public void updateFormat(@PathParam("id") UUID id, @Valid SimpleGreetingFormat format) throws EmptyFormatException {
 		formatService.update(
 				mapper.toDto(id, format)
 		);

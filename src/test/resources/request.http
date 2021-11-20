@@ -19,6 +19,24 @@ Authorization: Basic {{adminUsername}} {{adminPassword}}
 
 ###
 
+// New empty format
+POST http://localhost:8080/greeting/format
+Content-Type: application/json
+Authorization: Basic {{adminUsername}} {{adminPassword}}
+
+{
+  "format": null
+}
+
+> {%
+    client.test("Request returns error", function() {
+        client.assert(response.status === 400, "Response status is not 400");
+        client.global.set('formatId', response.body.id);
+    });
+%}
+
+###
+
 // New format
 POST http://localhost:8080/greeting/format
 Content-Type: application/json

@@ -7,7 +7,7 @@ import java.util.UUID;
 public interface GreetingFormatService {
 	List<GreetingFormat> findAll();
 	Optional<GreetingFormat> findOne(UUID id);
-	GreetingFormat create(String format);
-	void update(GreetingFormat format);
+	GreetingFormat create(String format) throws EmptyFormatException;
+	void update(GreetingFormat format) throws EmptyFormatException;
 	void delete(UUID id);
 }
