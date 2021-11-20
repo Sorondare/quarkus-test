@@ -1,5 +1,14 @@
 // default greeting
 GET http://localhost:8080/greeting/hello
+Accept: text/plain
+Authorization: Basic {{username}} {{password}}
+
+###
+
+// default greeting with admin account
+GET http://localhost:8080/greeting/hello
+Accept: text/plain
+Authorization: Basic {{adminUsername}} {{adminPassword}}
 
 ###
 

@@ -1,5 +1,6 @@
 package be.sorondare.quarkus.test.greeting;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -18,21 +19,16 @@ public class GreetingResource {
 	}
 
 	@GET
+	@RolesAllowed("user")
 	public String greeting(
 			@QueryParam("name") String name,
 			@QueryParam("formatId") UUID formatId,
 			@Context SecurityContext securityContext
-			) {
-		if (name == null) {
-			return "hello";
-		}
-
-		if (securityContext.getUserPrincipal() == null) {
-			throw new ForbiddenException();
-		}
-
-		return formatId == null ? greetingService.getGreeting(name) : greetingService
-				.getGreeting(formatId, name)
-				.orElseThrow(NotFoundException::new);
+	) {
+		return formatId == null ?
+				greetingService.getGreeting(name) :
+				greetingService
+						.getGreeting(formatId, name)
+						.orElseThrow(NotFoundException::new);
 	}
 }
