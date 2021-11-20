@@ -1,6 +1,6 @@
 package be.sorondare.quarkus.test.greeting;
 
-import io.quarkus.logging.Log;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import java.util.UUID;
 
+@Slf4j
 @Path("/greeting/hello")
 @Produces(MediaType.TEXT_PLAIN)
 public class GreetingResource {
@@ -27,7 +28,7 @@ public class GreetingResource {
 			@QueryParam("formatId") UUID formatId,
 			@Context SecurityContext securityContext
 	) {
-		Log.infof("Call with name %s and formatId %s", name, formatId);
+		log.info("Call with name {} and formatId {}", name, formatId);
 
 		return formatId == null ?
 				greetingService.getGreeting(name) :
