@@ -42,7 +42,7 @@ public class GreetingServiceImplTests {
 
 	@Test
 	void testSimpleGreetingException() {
-		Assertions.assertThrows(ConstraintViolationException.class, () -> service.getGreeting(null));
+		Assertions.assertEquals("Hello Me", service.getGreeting(null));
 	}
 
 	@Test
@@ -62,6 +62,6 @@ public class GreetingServiceImplTests {
 
 	@Test
 	void testNullNameGreetingFormatException() {
-		Assertions.assertThrows(ConstraintViolationException.class, () -> service.getGreeting(uuid, null));
+		Assertions.assertEquals(Optional.of("Test format Me"), service.getGreeting(uuid, null));
 	}
 }
