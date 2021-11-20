@@ -17,3 +17,6 @@ quarkus:
         roles: roles.properties
         realm-name: QuarkusTest
         plain-text: false
+
+  log:
+    level: INFO

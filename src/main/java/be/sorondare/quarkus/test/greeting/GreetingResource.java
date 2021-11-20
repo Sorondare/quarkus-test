@@ -1,5 +1,7 @@
 package be.sorondare.quarkus.test.greeting;
 
+import io.quarkus.logging.Log;
+
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -25,6 +27,8 @@ public class GreetingResource {
 			@QueryParam("formatId") UUID formatId,
 			@Context SecurityContext securityContext
 	) {
+		Log.infof("Call with name %s and formatId %s", name, formatId);
+
 		return formatId == null ?
 				greetingService.getGreeting(name) :
 				greetingService

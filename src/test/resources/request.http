@@ -1,5 +1,5 @@
 // default greeting
-GET http://localhost:8080/greeting/hello
+GET http://localhost:8080/greeting/hello?name=Me
 Accept: text/plain
 Authorization: Basic {{username}} {{password}}
 
