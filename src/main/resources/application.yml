@@ -1,8 +1,8 @@
 be:
   sorondare:
     greeting:
-      defaultFormat: Hello %s
-      defaultName: Me
+      format: Hello %s
+      default-name: Me
 
 quarkus:
   liquibase:
