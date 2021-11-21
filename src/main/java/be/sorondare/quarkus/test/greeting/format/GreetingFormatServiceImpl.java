@@ -36,22 +36,29 @@ class GreetingFormatServiceImpl implements GreetingFormatService {
 	}
 
 	@Override
+	public Optional<GreetingFormat> findOne(String name) {
+		return name == null ? Optional.empty() : formatRepository
+				.findOneByName(name)
+				.map(mapper::toDto);
+	}
+
+	@Override
 	@Transactional
-	public GreetingFormat create(String format) throws EmptyFormatException {
-		if (format == null) {
-			throw new EmptyFormatException();
+	public GreetingFormat create(GreetingFormat format) throws InvalidGreetingFormatException {
+		if (format == null || format.name() == null) {
+			throw new InvalidGreetingFormatException();
 		}
 
-		GreetingFormatEntity entity = new GreetingFormatEntity(format);
+		GreetingFormatEntity entity = mapper.toEntity(format);
 		formatRepository.persist(entity);
 		return mapper.toDto(entity);
 	}
 
 	@Override
 	@Transactional
-	public void update(GreetingFormat format) throws EmptyFormatException {
+	public void update(GreetingFormat format) throws InvalidGreetingFormatException {
 		if (format == null || format.id() == null) {
-			throw new EmptyFormatException();
+			throw new InvalidGreetingFormatException();
 		}
 
 		formatRepository

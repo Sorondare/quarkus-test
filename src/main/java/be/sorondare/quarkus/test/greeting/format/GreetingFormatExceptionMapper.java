@@ -7,10 +7,10 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class GreetingFormatExceptionMapper implements ExceptionMapper<EmptyFormatException> {
+public class GreetingFormatExceptionMapper implements ExceptionMapper<InvalidGreetingFormatException> {
 
 	@Override
-	public Response toResponse(EmptyFormatException exception) {
+	public Response toResponse(InvalidGreetingFormatException exception) {
 		return Response
 				.serverError()
 				.entity(new ErrorMessage("Invalid format"))

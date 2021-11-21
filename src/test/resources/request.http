@@ -37,7 +37,8 @@ Content-Type: application/json
 Authorization: Basic {{adminUsername}} {{adminPassword}}
 
 {
-  "format": null
+  "format": null,
+  "name": ""
 }
 
 > {%
@@ -54,20 +55,36 @@ Content-Type: application/json
 Authorization: Basic {{adminUsername}} {{adminPassword}}
 
 {
-  "format": "Voici mon format pour %s"
+  "format": "Voici mon format pour %s",
+  "name": "new_test_request_format"
 }
 
 > {%
     client.test("Request executed successfully", function() {
         client.assert(response.status === 200, "Response status is not 200");
         client.global.set('formatId', response.body.id);
+        client.global.set('formatName', response.body.name);
     });
 %}
 
 ###
 
-// Get created format
-GET http://localhost:8080/greeting/hello?name={{name}}&formatId={{formatId}}
+// Get created format by id
+GET http://localhost:8080/greeting/format/{{formatId}}
+Accept: application/json
+Authorization: Basic {{adminUsername}} {{adminPassword}}
+
+###
+
+// Get created format by name
+GET http://localhost:8080/greeting/format/search?formatName={{formatName}}
+Accept: application/json
+Authorization: Basic {{adminUsername}} {{adminPassword}}
+
+###
+
+// Get greeting with new format
+GET http://localhost:8080/greeting/hello?name={{name}}&formatName={{formatName}}
 Accept: text/plain
 Authorization: Basic {{username}} {{password}}
 
@@ -79,6 +96,7 @@ Content-Type: application/json
 Authorization: Basic {{adminUsername}} {{adminPassword}}
 
 {
+  "name": "{{formatName}}",
   "format": "Nouveau format pour %s"
 }
 

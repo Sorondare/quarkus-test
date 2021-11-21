@@ -36,14 +36,22 @@ public class GreetingFormatResource {
 				.orElseThrow(NotFoundException::new);
 	}
 
+	@GET
+	@Path("/search")
+	public GreetingFormat getFormat(@QueryParam("formatName") String formatName) {
+		return formatService
+				.findOne(formatName)
+				.orElseThrow(NotFoundException::new);
+	}
+
 	@POST
-	public GreetingFormat createFormat(@Valid SimpleGreetingFormat request) throws EmptyFormatException {
-		return formatService.create(request.format());
+	public GreetingFormat createFormat(@Valid SimpleGreetingFormat request) throws InvalidGreetingFormatException {
+		return formatService.create(mapper.toDto(request));
 	}
 
 	@PUT
 	@Path("/{id}")
-	public void updateFormat(@PathParam("id") UUID id, @Valid SimpleGreetingFormat format) throws EmptyFormatException {
+	public void updateFormat(@PathParam("id") UUID id, @Valid SimpleGreetingFormat format) throws InvalidGreetingFormatException {
 		formatService.update(
 				mapper.toDto(id, format)
 		);

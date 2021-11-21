@@ -12,6 +12,15 @@ databaseChangeLog:
               - column:
                   name: id
                   type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
               - column:
                   name: format
                   type: varchar(255)
@@ -27,6 +36,10 @@ databaseChangeLog:
                   header: id
                   name: id
                   type: uuid
+              - column:
+                  header: name
+                  name: name
+                  type: varchar(50)
               - column:
                   header: format
                   name: format

@@ -16,8 +16,8 @@ import java.util.UUID;
 
 @QuarkusTest
 public class GreetingServiceImplTests {
-	private final static UUID uuid = UUID.randomUUID();
-	private final static UUID unknownUuid = UUID.randomUUID();
+	private static final String formatName = "test";
+	private static final String unknownFormatName = "unknown";
 
 	@InjectMock
 	private GreetingFormatService formatService;
@@ -30,14 +30,14 @@ public class GreetingServiceImplTests {
 
 	@BeforeEach
 	void setup() {
-		GreetingFormat format = new GreetingFormat(uuid, "Test format %s");
-		Mockito.when(formatService.findOne(uuid)).thenReturn(Optional.of(format));
-		Mockito.when(formatService.findOne(unknownUuid)).thenReturn(Optional.empty());
+		GreetingFormat format = new GreetingFormat(UUID.randomUUID(), formatName, "Test format %s");
+		Mockito.when(formatService.findOne(formatName)).thenReturn(Optional.of(format));
+		Mockito.when(formatService.findOne(unknownFormatName)).thenReturn(Optional.empty());
 	}
 
 	@Test
 	void testSimpleGreeting() {
-		Assertions.assertEquals("Hello test", service.getGreeting("test"));
+		Assertions.assertEquals("Hello test", service.getGreeting(formatName));
 	}
 
 	@Test
@@ -47,12 +47,12 @@ public class GreetingServiceImplTests {
 
 	@Test
 	void testGreetingFromFormat() {
-		Assertions.assertEquals(Optional.of("Test format test"), service.getGreeting(uuid, "test"));
+		Assertions.assertEquals(Optional.of("Test format test"), service.getGreeting("test", "test"));
 	}
 
 	@Test
 	void testUnknownGreetingFromFormat() {
-		Assertions.assertEquals(Optional.empty(), service.getGreeting(unknownUuid, "test"));
+		Assertions.assertEquals(Optional.empty(), service.getGreeting(unknownFormatName, "test"));
 	}
 
 	@Test
@@ -62,6 +62,6 @@ public class GreetingServiceImplTests {
 
 	@Test
 	void testNullNameGreetingFormatException() {
-		Assertions.assertEquals(Optional.of("Test format Me"), service.getGreeting(uuid, null));
+		Assertions.assertEquals(Optional.of("Test format Me"), service.getGreeting(formatName, null));
 	}
 }

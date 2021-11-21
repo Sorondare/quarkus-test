@@ -9,18 +9,21 @@ import java.util.UUID;
 interface GreetingFormatMapper {
 	@Mappings({
 			@Mapping(target = "id", ignore = true),
+			@Mapping(target = "name", source = "name"),
 			@Mapping(target = "format", source = "format")
 	})
 	GreetingFormat toDto(SimpleGreetingFormat source);
 
 	@Mappings({
 			@Mapping(target = "id", source = "id"),
+			@Mapping(target = "name", source = "source.name"),
 			@Mapping(target = "format", source = "source.format")
 	})
 	GreetingFormat toDto(UUID id, SimpleGreetingFormat source);
 
 	@Mappings({
 			@Mapping(target = "id", source = "id"),
+			@Mapping(target = "name", source = "name"),
 			@Mapping(target = "format", source = "format")
 	})
 	GreetingFormat toDto(GreetingFormatEntity entity);
@@ -31,5 +34,9 @@ interface GreetingFormatMapper {
 	GreetingFormatEntity toEntity(GreetingFormat dto);
 
 	@InheritInverseConfiguration
+	@Mappings({
+			@Mapping(target = "id", ignore = true),
+			@Mapping(target = "name", ignore = true)
+	})
 	GreetingFormatEntity toEntity(GreetingFormat dto, @MappingTarget GreetingFormatEntity entity);
 }

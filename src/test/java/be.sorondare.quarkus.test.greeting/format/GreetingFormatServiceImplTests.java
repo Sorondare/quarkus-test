@@ -26,11 +26,19 @@ public class GreetingFormatServiceImplTests {
 	}
 
 	@Test
-	void create() throws EmptyFormatException {
-		final var format = "Test format %s";
+	void create() throws InvalidGreetingFormatException {
+		final var format = new GreetingFormat(null,"test", "Test format %s");
 
-		Assertions.assertEquals(format, service.create(format).format());
+		service.create(format);
+
 		Mockito.verify(formatRepository, Mockito.times(1)).persist(Mockito.any(GreetingFormatEntity.class));
+	}
+
+	@Test
+	void createWithNullName() {
+		final var format = new GreetingFormat(null,null, "Test format %s");
+
+		Assertions.assertThrows(InvalidGreetingFormatException.class, () -> service.create(format));
 	}
 
 	@Test
@@ -40,9 +48,10 @@ public class GreetingFormatServiceImplTests {
 
 	@Test
 	void findOne() {
-		final var greetingFormat = new GreetingFormat(UUID.randomUUID(), "Test format %s");
+		final var greetingFormat = new GreetingFormat(UUID.randomUUID(), "test", "Test format %s");
 		final var entity = new GreetingFormatEntity();
 		entity.setId(greetingFormat.id());
+		entity.setName("test");
 		entity.setFormat(greetingFormat.format());
 
 		Mockito
@@ -78,10 +87,11 @@ public class GreetingFormatServiceImplTests {
 	}
 
 	@Test
-	void updateFormat() throws EmptyFormatException {
-		final var greetingFormat = new GreetingFormat(UUID.randomUUID(), "Test new format %s");
+	void updateFormat() throws InvalidGreetingFormatException {
+		final var greetingFormat = new GreetingFormat(UUID.randomUUID(), "NEW", "Test new format %s");
 		final var entity = new GreetingFormatEntity();
 		entity.setId(greetingFormat.id());
+		entity.setName("OLD");
 		entity.setFormat("Test old format %s");
 
 		Mockito
@@ -91,5 +101,6 @@ public class GreetingFormatServiceImplTests {
 		service.update(greetingFormat);
 
 		Assertions.assertEquals(greetingFormat.format(), entity.getFormat());
+		Assertions.assertEquals("OLD", entity.getName());
 	}
 }

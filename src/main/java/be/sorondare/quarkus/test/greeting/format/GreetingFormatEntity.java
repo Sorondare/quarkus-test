@@ -23,31 +23,31 @@ class GreetingFormatEntity {
 	@Column(name = "id", updatable = false, nullable = false)
 	private UUID id;
 
+	@Column(name = "name", updatable = false, nullable = false, unique = true)
+	private String name;
+
 	@Column(name = "format")
 	private String format;
 
-	GreetingFormatEntity(String format) {
-		this.format = format;
-	}
-
 	@Override
 	public int hashCode() {
-		return (31 + (id == null ? 0 : id.hashCode())) % 31;
+		return id != null ? id.hashCode() : (name != null ? name.hashCode() : 31);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof GreetingFormatEntity other) || id == null) {
+		if (!(obj instanceof GreetingFormatEntity other) || (id == null && name == null)) {
 			return false;
 		}
 
-		return id.equals(other.id);
+		return id != null ? id.equals(other.id) : name.equals(other.name);
 	}
 
 	@Override
 	public String toString() {
 		return "GreetingFormatEntity{" +
 				"id=" + id +
+				", name='" + name + '\'' +
 				", format='" + format + '\'' +
 				'}';
 	}

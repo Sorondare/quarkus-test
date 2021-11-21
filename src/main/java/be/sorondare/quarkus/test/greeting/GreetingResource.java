@@ -25,15 +25,15 @@ public class GreetingResource {
 	@RolesAllowed("user")
 	public String greeting(
 			@QueryParam("name") String name,
-			@QueryParam("formatId") UUID formatId,
+			@QueryParam("formatName") String formatName,
 			@Context SecurityContext securityContext
 	) {
-		log.info("Call with name {} and formatId {}", name, formatId);
+		log.info("Call with name {} and format {}", name, formatName);
 
-		return formatId == null ?
+		return formatName == null ?
 				greetingService.getGreeting(name) :
 				greetingService
-						.getGreeting(formatId, name)
+						.getGreeting(formatName, name)
 						.orElseThrow(NotFoundException::new);
 	}
 }
