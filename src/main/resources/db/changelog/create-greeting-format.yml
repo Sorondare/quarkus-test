@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - preConditions:
+    - runningAs:
+        username: SA
+
+  - changeSet:
+      id: 1-createSchema
+      author: Sorondare
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+              - column:
+                  name: format
+                  type: varchar(255)
+            tableName: greeting_format
+
+  - changeSet:
+      id: 2-loadFirstFormats
+      author: Sorondare
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: uuid
+              - column:
+                  header: format
+                  name: format
+                  type: varchar(255)
+            tableName: greeting_format
+            usePreparedStatement: true
+            file: db/data/greeting_formats.csv

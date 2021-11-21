@@ -6,7 +6,7 @@ be:
 
 quarkus:
   liquibase:
-    change-log: db/changeLog.yml
+    change-log: db/changelog-master.yml
     migrate-at-start: true
 
   security:
