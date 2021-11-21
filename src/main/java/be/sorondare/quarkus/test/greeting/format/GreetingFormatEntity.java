@@ -1,6 +1,5 @@
 package be.sorondare.quarkus.test.greeting.format;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,5 +28,27 @@ class GreetingFormatEntity {
 
 	GreetingFormatEntity(String format) {
 		this.format = format;
+	}
+
+	@Override
+	public int hashCode() {
+		return (31 + (id == null ? 0 : id.hashCode())) % 31;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof GreetingFormatEntity other) || id == null) {
+			return false;
+		}
+
+		return id.equals(other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "GreetingFormatEntity{" +
+				"id=" + id +
+				", format='" + format + '\'' +
+				'}';
 	}
 }
