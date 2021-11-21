@@ -50,12 +50,12 @@ class GreetingFormatServiceImpl implements GreetingFormatService {
 	@Override
 	@Transactional
 	public void update(GreetingFormat format) throws EmptyFormatException {
-		if (format == null || format.getId() == null) {
+		if (format == null || format.id() == null) {
 			throw new EmptyFormatException();
 		}
 
 		formatRepository
-				.findByIdOptional(format.getId())
+				.findByIdOptional(format.id())
 				.map(entity -> mapper.toEntity(format, entity))
 				.map(mapper::toDto);
 	}

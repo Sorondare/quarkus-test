@@ -5,6 +5,18 @@ Authorization: Basic {{username}} {{password}}
 
 ###
 
+// default greeting without authentication
+GET http://localhost:8080/greeting/hello?name=Me
+Accept: text/plain
+
+> {%
+    client.test("Test failed authentication", function() {
+        client.assert(response.status === 401, "Response status is not 401");
+    });
+%}
+
+###
+
 // default greeting with admin account
 GET http://localhost:8080/greeting/hello
 Accept: text/plain
@@ -31,7 +43,6 @@ Authorization: Basic {{adminUsername}} {{adminPassword}}
 > {%
     client.test("Request returns error", function() {
         client.assert(response.status === 400, "Response status is not 400");
-        client.global.set('formatId', response.body.id);
     });
 %}
 

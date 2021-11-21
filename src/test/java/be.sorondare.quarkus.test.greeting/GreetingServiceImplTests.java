@@ -30,7 +30,7 @@ public class GreetingServiceImplTests {
 
 	@BeforeEach
 	void setup() {
-		GreetingFormat format = GreetingFormat.builder().id(uuid).format("Test format %s").build();
+		GreetingFormat format = new GreetingFormat(uuid, "Test format %s");
 		Mockito.when(formatService.findOne(uuid)).thenReturn(Optional.of(format));
 		Mockito.when(formatService.findOne(unknownUuid)).thenReturn(Optional.empty());
 	}

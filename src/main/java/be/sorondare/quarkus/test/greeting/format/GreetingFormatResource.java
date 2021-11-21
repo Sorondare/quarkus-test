@@ -38,7 +38,7 @@ public class GreetingFormatResource {
 
 	@POST
 	public GreetingFormat createFormat(@Valid SimpleGreetingFormat request) throws EmptyFormatException {
-		return formatService.create(request.getFormat());
+		return formatService.create(request.format());
 	}
 
 	@PUT

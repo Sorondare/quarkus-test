@@ -29,7 +29,7 @@ public class GreetingFormatServiceImplTests {
 	void create() throws EmptyFormatException {
 		final var format = "Test format %s";
 
-		Assertions.assertEquals(format, service.create(format).getFormat());
+		Assertions.assertEquals(format, service.create(format).format());
 		Mockito.verify(formatRepository, Mockito.times(1)).persist(Mockito.any(GreetingFormatEntity.class));
 	}
 
@@ -40,16 +40,16 @@ public class GreetingFormatServiceImplTests {
 
 	@Test
 	void findOne() {
-		final var greetingFormat = GreetingFormat.builder().id(UUID.randomUUID()).format("Test format %s").build();
+		final var greetingFormat = new GreetingFormat(UUID.randomUUID(), "Test format %s");
 		final var entity = new GreetingFormatEntity();
-		entity.setId(greetingFormat.getId());
-		entity.setFormat(greetingFormat.getFormat());
+		entity.setId(greetingFormat.id());
+		entity.setFormat(greetingFormat.format());
 
 		Mockito
-				.when(formatRepository.findByIdOptional(greetingFormat.getId()))
+				.when(formatRepository.findByIdOptional(greetingFormat.id()))
 				.thenReturn(Optional.of(entity));
 
-		Assertions.assertEquals(Optional.of(greetingFormat), service.findOne(greetingFormat.getId()));
+		Assertions.assertEquals(Optional.of(greetingFormat), service.findOne(greetingFormat.id()));
 	}
 
 	@Test
@@ -79,17 +79,17 @@ public class GreetingFormatServiceImplTests {
 
 	@Test
 	void updateFormat() throws EmptyFormatException {
-		final var greetingFormat = GreetingFormat.builder().id(UUID.randomUUID()).format("Test new format %s").build();
+		final var greetingFormat = new GreetingFormat(UUID.randomUUID(), "Test new format %s");
 		final var entity = new GreetingFormatEntity();
-		entity.setId(greetingFormat.getId());
+		entity.setId(greetingFormat.id());
 		entity.setFormat("Test old format %s");
 
 		Mockito
-				.when(formatRepository.findByIdOptional(greetingFormat.getId()))
+				.when(formatRepository.findByIdOptional(greetingFormat.id()))
 				.thenReturn(Optional.of(entity));
 
 		service.update(greetingFormat);
 
-		Assertions.assertEquals(greetingFormat.getFormat(), entity.getFormat());
+		Assertions.assertEquals(greetingFormat.format(), entity.getFormat());
 	}
 }
