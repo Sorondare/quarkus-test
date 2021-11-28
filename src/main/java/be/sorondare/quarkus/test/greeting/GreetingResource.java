@@ -25,7 +25,7 @@ public class GreetingResource {
 	@RolesAllowed("user")
 	public String greeting(
 			@QueryParam("name") String name,
-			@QueryParam("formatName") String formatName,
+			@QueryParam("format") String formatName,
 			@Context SecurityContext securityContext
 	) {
 		log.info("Call with name {} and format {}", name, formatName);

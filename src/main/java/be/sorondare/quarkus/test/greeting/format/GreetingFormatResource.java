@@ -4,7 +4,9 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,8 +47,12 @@ public class GreetingFormatResource {
 	}
 
 	@POST
-	public GreetingFormat createFormat(@Valid SimpleGreetingFormat request) throws InvalidGreetingFormatException {
-		return formatService.create(mapper.toDto(request));
+	public Response createFormat(@Valid SimpleGreetingFormat request, @Context UriInfo uriInfo) throws InvalidGreetingFormatException {
+		GreetingFormat format = formatService.create(mapper.toDto(request));
+		return Response
+				.created(UriBuilder.fromPath(uriInfo.getPath()).path(format.id().toString()).build())
+				.entity(format)
+				.build();
 	}
 
 	@PUT
