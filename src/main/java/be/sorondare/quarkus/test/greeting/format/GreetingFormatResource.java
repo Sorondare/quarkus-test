@@ -1,15 +1,17 @@
 package be.sorondare.quarkus.test.greeting.format;
 
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.UUID;
 
+@Tag(name = "GreetingFormat", description = "Operations to manage greeting formats")
 @Path("/greeting/format")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -46,6 +48,9 @@ public class GreetingFormatResource {
 				.orElseThrow(NotFoundException::new);
 	}
 
+	@APIResponse(
+		responseCode = "201", description = "Created"
+	)
 	@POST
 	public Response createFormat(@Valid SimpleGreetingFormat request, @Context UriInfo uriInfo) throws InvalidGreetingFormatException {
 		GreetingFormat format = formatService.create(mapper.toDto(request));
