@@ -24,6 +24,8 @@ dependencies {
     implementation 'io.quarkus:quarkus-arc'
     implementation 'io.quarkus:quarkus-elytron-security-properties-file'
     implementation 'io.quarkus:quarkus-smallrye-openapi'
+    implementation 'io.quarkus:quarkus-smallrye-health'
+    implementation 'io.quarkus:quarkus-smallrye-metrics'
     implementation 'org.jboss.slf4j:slf4j-jboss-logmanager'
 
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
