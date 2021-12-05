@@ -8,14 +8,20 @@ quarkus:
   datasource:
     db-kind: h2
     username: sa
+    password:
+    jdbc:
+      url: jdbc:h2:mem:quarkus-test-database;INIT=CREATE SCHEMA IF NOT EXISTS quarkus
     metrics:
       enabled: true
-    jdbc:
-      url: jdbc:h2:mem:quarkus-test-database
 
   liquibase:
     change-log: db/changelog-master.yml
     migrate-at-start: true
+    default-schema-name: quarkus
+
+  hibernate-orm:
+    database:
+      default-schema: quarkus
 
   security:
     users:

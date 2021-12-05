@@ -4,7 +4,7 @@ databaseChangeLog:
         username: SA
 
   - changeSet:
-      id: 1-createSchema
+      id: 1-create-greeting-format-table
       author: Sorondare
       changes:
         - createTable:
@@ -27,7 +27,7 @@ databaseChangeLog:
             tableName: greeting_format
 
   - changeSet:
-      id: 2-loadFirstFormats
+      id: 2-load-first-formats
       author: Sorondare
       changes:
         - loadData:
