@@ -2,9 +2,13 @@ name:  Build and test branches
 
 on:
   push:
-    tags:
-      - "!v*"
+    branches:
+      - '**'
+    tags-ignore:
+      - 'v*'
   pull_request:
+    branches :
+      - '**'
 
 jobs:
   build:
