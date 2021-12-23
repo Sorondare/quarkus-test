@@ -1,14 +1,6 @@
 name:  Build and test branches
 
-on:
-  push:
-    branches:
-      - '**'
-    tags-ignore:
-      - 'v*'
-  pull_request:
-    branches :
-      - '**'
+on: [push, pull_request]
 
 jobs:
   build:
