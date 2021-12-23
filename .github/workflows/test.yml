@@ -25,13 +25,14 @@ jobs:
           cache: gradle
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
-      - name: Build with Gradle
+      - name: Test with Gradle
         run: ./gradlew test
       - uses: actions/upload-artifact@v2
+        name: Saving test results
         with:
           name: Archive test reports
           path: build/reports/tests/test
-      - name: Cleanup Gradle Cache
+      - name: Cleanup Gradle cache
         run: |
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
           rm -f ~/.gradle/caches/modules-2/gc.properties
