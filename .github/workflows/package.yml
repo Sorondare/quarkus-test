@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    uses: Sorondare/quarkus-test/.github/workflows/build.yml@latest
+    uses: ./.github/workflows/build.yml@latest
     with:
       produce-jar-artifact: true
 
