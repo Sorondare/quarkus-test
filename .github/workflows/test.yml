@@ -4,6 +4,6 @@ on: [push, pull_request]
 
 jobs:
   build:
-    uses: Sorondare/quarkus-test/.github/workflows/build.yml@latest
+    uses: Sorondare/quarkus-test/.github/workflows/build.yml@master
     with:
       produce-jar-artifact: false
