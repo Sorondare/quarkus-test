@@ -7,12 +7,11 @@ on:
 
 jobs:
   build:
-    uses: Sorondare/quarkus-test/.github/workflows/build.yml@master
+    uses: Sorondare/quarkus-test/.github/workflows/build.yml@latest
     with:
       produce-jar-artifact: true
 
   package:
-    needs: build
     runs-on: ubuntu-latest
     name: Docker package
     steps:
