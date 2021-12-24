@@ -1,6 +1,12 @@
-name:  Build and test branches
+name: Build application
 
-on: [push, pull_request]
+on:
+  workflow_call:
+    inputs:
+      produce-jar-artifact:
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   build:
@@ -22,8 +28,14 @@ jobs:
       - uses: actions/upload-artifact@v2
         name: Saving test results
         with:
-          name: Archive test reports
+          name: test-report
           path: build/reports/tests/test
+      - uses: actions/upload-artifact@v2
+        if: ${{ inputs.produce-jar }}
+        name: Saving jar file
+        with:
+          name: quarkus-jar
+          path: build/libs/quarkus-test-*.jar
       - name: Cleanup Gradle cache
         run: |
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
