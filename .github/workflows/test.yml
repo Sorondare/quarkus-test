@@ -1,11 +1,11 @@
-name:  Build and test branches
+name: Run Gradle tests
 
 on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build native Quarkus app
+    name: Test Quarkus app
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -18,11 +18,11 @@ jobs:
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew test
       - uses: actions/upload-artifact@v2
         name: Saving test results
         with:
-          name: Archive test reports
+          name: test-report
           path: build/reports/tests/test
       - name: Cleanup Gradle cache
         run: |
