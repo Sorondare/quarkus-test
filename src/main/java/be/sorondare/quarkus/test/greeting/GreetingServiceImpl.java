@@ -6,7 +6,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
-import java.util.UUID;
 
 @ApplicationScoped
 class GreetingServiceImpl implements GreetingService {
@@ -16,7 +15,7 @@ class GreetingServiceImpl implements GreetingService {
 	@Inject
 	GreetingServiceImpl(
 			GreetingFormatService greetingFormatService,
-			@SuppressWarnings("CdiInjectionPointsInspection") GreetingConfig config
+			GreetingConfig config
 	) {
 		this.greetingFormatService = greetingFormatService;
 		this.config = config;

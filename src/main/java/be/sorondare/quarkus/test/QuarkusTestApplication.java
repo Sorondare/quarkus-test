@@ -24,7 +24,8 @@ import javax.ws.rs.core.Application;
 						url = "https://github.com/Sorondare/quarkus-test"),
 				license = @License(
 						name = "AGPL v3.0",
-						url = "https://github.com/Sorondare/quarkus-test/blob/master/LICENSE"))
+						url = "https://github.com/Sorondare/quarkus-test/blob/master/LICENSE")
+		)
 )
 public class QuarkusTestApplication extends Application {
 }
