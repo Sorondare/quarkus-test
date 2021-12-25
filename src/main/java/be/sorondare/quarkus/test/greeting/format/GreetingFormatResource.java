@@ -1,5 +1,6 @@
 package be.sorondare.quarkus.test.greeting.format;
 
+import be.sorondare.quarkus.test.commons.AlreadyExistsException;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
@@ -52,7 +53,7 @@ public class GreetingFormatResource {
 		responseCode = "201", description = "Created"
 	)
 	@POST
-	public Response createFormat(@Valid SimpleGreetingFormat request, @Context UriInfo uriInfo) throws InvalidGreetingFormatException {
+	public Response createFormat(@Valid SimpleGreetingFormat request, @Context UriInfo uriInfo) throws InvalidGreetingFormatException, AlreadyExistsException {
 		GreetingFormat format = formatService.create(mapper.toDto(request));
 		return Response
 				.created(UriBuilder.fromPath(uriInfo.getPath()).path(format.id().toString()).build())

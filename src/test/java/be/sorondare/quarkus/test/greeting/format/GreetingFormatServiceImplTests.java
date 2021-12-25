@@ -1,5 +1,6 @@
 package be.sorondare.quarkus.test.greeting.format;
 
+import be.sorondare.quarkus.test.commons.AlreadyExistsException;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
@@ -26,7 +27,7 @@ public class GreetingFormatServiceImplTests {
 	}
 
 	@Test
-	void create() throws InvalidGreetingFormatException {
+	void create() throws InvalidGreetingFormatException, AlreadyExistsException {
 		final var format = new GreetingFormat(null,"test", "Test format %s");
 
 		service.create(format);

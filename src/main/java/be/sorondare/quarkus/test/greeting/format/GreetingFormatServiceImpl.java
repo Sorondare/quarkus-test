@@ -1,5 +1,7 @@
 package be.sorondare.quarkus.test.greeting.format;
 
+import be.sorondare.quarkus.test.commons.AlreadyExistsException;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -44,9 +46,14 @@ class GreetingFormatServiceImpl implements GreetingFormatService {
 
 	@Override
 	@Transactional
-	public GreetingFormat create(GreetingFormat format) throws InvalidGreetingFormatException {
+	public GreetingFormat create(GreetingFormat format) throws InvalidGreetingFormatException, AlreadyExistsException {
 		if (format == null || format.name() == null) {
 			throw new InvalidGreetingFormatException();
+		}
+
+		GreetingFormat oldFormat = findOne(format.name()).orElse(null);
+		if (oldFormat != null) {
+			throw new AlreadyExistsException(format.name());
 		}
 
 		GreetingFormatEntity entity = mapper.toEntity(format);
