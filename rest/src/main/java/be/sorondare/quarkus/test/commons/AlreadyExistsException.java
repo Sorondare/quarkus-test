@@ -2,7 +2,7 @@ package be.sorondare.quarkus.test.commons;
 
 public class AlreadyExistsException extends Exception {
 
-	private String id;
+	private final String id;
 
 	public AlreadyExistsException(String id) {
 		this.id = id;

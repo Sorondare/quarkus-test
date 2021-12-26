@@ -136,7 +136,7 @@ http-client.private.env.json
 ### Gradle template
 .gradle
 **/build/
-!src/**/build/
+!rest/src/**/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting

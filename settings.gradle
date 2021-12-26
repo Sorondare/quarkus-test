@@ -9,4 +9,7 @@ pluginManagement {
         id "${lombokPluginId}" version "${lombokPluginVersion}"
     }
 }
+
 rootProject.name = 'quarkus-test'
+
+include 'rest'
