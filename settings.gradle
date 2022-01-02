@@ -12,5 +12,7 @@ pluginManagement {
 
 rootProject.name = 'quarkus-test'
 
+include 'common'
 include 'rest'
 include 'reactive'
+

@@ -1,13 +1,13 @@
 package be.sorondare.quarkus.test.greeting;
 
+import io.smallrye.mutiny.Uni;
+import io.vertx.mutiny.core.Vertx;
+
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/greeting")
+@Path("/greeting/hello")
 public class GreetingResource {
 
 	private final GreetingService service;
@@ -19,7 +19,13 @@ public class GreetingResource {
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	public String getGreeting(@QueryParam("name") String name) {
-		return service.getGreeting(name);
+	public Uni<String> getGreeting(
+			@QueryParam("name") String name,
+			@QueryParam("format") String formatName
+	) {
+		return Uni
+				.createFrom()
+				.item(name)
+				.map(n -> formatName == null ? service.getGreeting(n) : service.getGreeting(formatName, n).orElseThrow(NotFoundException::new));
 	}
 }

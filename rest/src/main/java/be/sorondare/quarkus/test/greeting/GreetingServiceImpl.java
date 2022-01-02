@@ -28,7 +28,8 @@ class GreetingServiceImpl implements GreetingService {
 	}
 
 	@Override
-	public @NotNull Optional<String> getGreeting(@NotNull String formatName, String name) {
+	@NotNull
+	public Optional<String> getGreeting(@NotNull String formatName, String name) {
 		return greetingFormatService
 				.findOne(formatName)
 				.map(greetingFormat -> String.format(greetingFormat.format(), name == null ? config.defaultName() : name));
