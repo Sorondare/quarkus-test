@@ -13,7 +13,7 @@ public class GreetingFormatServiceImpl implements GreetingFormatService {
 
 	public GreetingFormatServiceImpl() {
 		formats = Arrays.asList(
-				new GreetingFormat(UUID.randomUUID(), "test", "Voici le test de %s"),
+				new GreetingFormat(UUID.randomUUID(), "test", "Here is the test from %s"),
 				new GreetingFormat(UUID.randomUUID(), "hello", "Hello %s")
 		);
 	}
