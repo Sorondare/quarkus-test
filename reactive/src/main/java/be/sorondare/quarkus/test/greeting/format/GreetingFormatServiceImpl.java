@@ -1,7 +1,5 @@
 package be.sorondare.quarkus.test.greeting.format;
 
-import be.sorondare.quarkus.test.commons.AlreadyExistsException;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.NotFoundException;
 import java.util.Arrays;

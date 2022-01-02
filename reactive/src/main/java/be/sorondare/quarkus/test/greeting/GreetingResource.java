@@ -1,6 +1,7 @@
 package be.sorondare.quarkus.test.greeting;
 
 import io.smallrye.mutiny.Uni;
+import io.vertx.mutiny.core.Vertx;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -24,7 +25,7 @@ public class GreetingResource {
 	) {
 		return Uni
 				.createFrom()
-				.item(formatName)
-				.map(format -> format == null ? service.getGreeting(name) : service.getGreeting(format, name).orElseThrow(NotFoundException::new));
+				.item(name)
+				.map(n -> formatName == null ? service.getGreeting(n) : service.getGreeting(formatName, n).orElseThrow(NotFoundException::new));
 	}
 }
