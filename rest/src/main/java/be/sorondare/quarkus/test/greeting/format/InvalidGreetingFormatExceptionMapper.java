@@ -7,7 +7,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class GreetingFormatExceptionMapper implements ExceptionMapper<InvalidGreetingFormatException> {
+public class InvalidGreetingFormatExceptionMapper implements ExceptionMapper<InvalidGreetingFormatException> {
 
 	@Override
 	public Response toResponse(InvalidGreetingFormatException exception) {
