@@ -7,7 +7,7 @@ import io.smallrye.config.WithName;
 
 @StaticInitSafe
 @ConfigMapping(prefix = "be.sorondare.greeting")
-interface GreetingConfig {
+public interface GreetingConfig {
 	@WithName("name")
 	@WithDefault("me")
 	String defaultName();
